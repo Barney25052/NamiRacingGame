@@ -6,6 +6,9 @@ public class CatmullRomSpline : MonoBehaviour
 {
     [Range(0, 1)]
     public float alpha = 0.5f;
+
+    [SerializeField]
+    bool render;
     int PointCount => transform.childCount;
     int SegmentCount => PointCount - 3;
     Vector3 GetPoint(int i) => transform.GetChild(i).position;
@@ -17,7 +20,10 @@ public class CatmullRomSpline : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        return;
+        if (!render)
+        {
+            return;
+        }
         for (int i = 0; i < SegmentCount; i++)
             DrawCurveSegment(GetCurve(i));
     }

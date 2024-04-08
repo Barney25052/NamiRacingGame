@@ -29,7 +29,7 @@ public class RoadMeshGenerator : MonoBehaviour
 
     SplinePoint GetSplinePoint(int i) => _points.GetChild(i).GetComponent<SplinePoint>();
 
-    void FixedUpdate()
+    void Start()
     {
         SplinePoint[] points = new SplinePoint[_points.childCount];
         for (int i = 0; i < points.Length; i++)
@@ -165,8 +165,6 @@ public class RoadMeshGenerator : MonoBehaviour
         mesh.vertices = vertices;
         mesh.triangles = triangles;
         mesh.normals = normals;
-
-        Debug.Log(vertices[vertices.Length - 1]);
 
         _meshFilter.mesh = mesh;
         GetComponent<MeshCollider>().sharedMesh = mesh;
