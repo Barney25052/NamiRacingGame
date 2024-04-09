@@ -34,6 +34,9 @@ public class CarController : MonoBehaviour
     [SerializeField]
     private LayerMask _carLayer;
 
+    [SerializeField]
+    private Transform[] _wheels;
+
     int turnPerFrame = 0;
     int maxTurns = 30;
 
@@ -118,6 +121,16 @@ public class CarController : MonoBehaviour
         if(normal != Vector3.zero)
         {
             _carModel.rotation = Quaternion.Lerp(_carModel.rotation, Quaternion.FromToRotation(_carModel.up, normal) * _carModel.rotation, 0.4f);
+        }
+
+        foreach(Transform wheel in _wheels)
+        {
+            int mult = -1;
+            if(wheel.transform.localPosition.x < 0)
+            {
+                mult = 1;
+            }
+            wheel.transform.Rotate(Vector3.up, _currentSpeed * Time.deltaTime * 150 * mult);
         }
     }
 }

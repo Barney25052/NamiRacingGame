@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class RoadMeshGenerator : MonoBehaviour
@@ -40,6 +41,20 @@ public class RoadMeshGenerator : MonoBehaviour
         Spline spline = new Spline(points, resolution);
 
         GenerateMesh(spline);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            SaveAsset();
+        }
+    }
+
+    void SaveAsset()
+    {
+        Mesh mesh = _meshFilter.mesh;
+        AssetDatabase.CreateAsset(mesh, "Assets/Tracks/Track.asset");
     }
 
     void GenerateMesh(Spline spline)
